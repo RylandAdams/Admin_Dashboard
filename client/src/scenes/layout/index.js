@@ -21,7 +21,10 @@ const Layout = () => {
 				setIsSidebarOpen={setIsSidebarOpen}
 			></Sidebar>
 			<Box>
-				<Navbar isSidebarOpen={isSidebarOpen} />
+				<Navbar
+					isSidebarOpen={isSidebarOpen}
+					setIsSidebarOpen={setIsSidebarOpen}
+				/>
 				<Outlet />
 			</Box>
 		</Box>
