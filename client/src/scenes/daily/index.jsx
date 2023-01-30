@@ -15,6 +15,8 @@ const Daily = () => {
 	const [formattedData] = useMemo(() => {
 		if (!data) return [];
 
+		console.log('🚀 ~ file: index.jsx:13 ~ Daily ~ data', data);
+
 		const { dailyData } = data;
 		const totalSalesLine = {
 			id: 'totalSales',
@@ -31,7 +33,7 @@ const Daily = () => {
 			const dateFormatted = new Date(date);
 			if (dateFormatted >= startDate && dateFormatted <= endDate) {
 				const splitDate = date.substring(date.indexOf('-') + 1);
-
+				console.log('HRER');
 				totalSalesLine.data = [
 					...totalSalesLine.data,
 					{ x: splitDate, y: totalSales },
@@ -47,6 +49,7 @@ const Daily = () => {
 		return [formattedData];
 	}, [data, startDate, endDate]); // eslint-disable-line react-hooks/exhaustive-deps
 
+	console.log(formattedData);
 	return (
 		<Box m='1.5rem 2.5rem'>
 			<Header
