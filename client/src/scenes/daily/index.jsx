@@ -12,12 +12,13 @@ const Daily = () => {
 	const { data } = useGetSalesQuery();
 	const theme = useTheme();
 
+	console.log(data);
+
 	const [formattedData] = useMemo(() => {
 		if (!data) return [];
 
-		console.log('🚀 ~ file: index.jsx:13 ~ Daily ~ data', data);
-
 		const { dailyData } = data;
+
 		const totalSalesLine = {
 			id: 'totalSales',
 			color: theme.palette.secondary.main,
@@ -30,7 +31,9 @@ const Daily = () => {
 		};
 
 		Object.values(dailyData).forEach(({ date, totalSales, totalUnits }) => {
+			console.log(date);
 			const dateFormatted = new Date(date);
+
 			if (dateFormatted >= startDate && dateFormatted <= endDate) {
 				const splitDate = date.substring(date.indexOf('-') + 1);
 				console.log('HRER');
