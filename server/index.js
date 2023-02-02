@@ -8,7 +8,7 @@ import morgan from 'morgan';
 
 import clientRoutes from './routes/client.js';
 import generalRoutes from './routes/general.js';
-// import managementRoutes from './routes/management.js';
+import managementRoutes from './routes/management.js';
 import salesRoutes from './routes/sales.js';
 
 // data imports
@@ -39,7 +39,7 @@ app.use(cors());
 /* ROUTES */
 app.use('/client', clientRoutes);
 app.use('/general', generalRoutes);
-// app.use('/management', managementRoutes);
+app.use('/management', managementRoutes);
 app.use('/sales', salesRoutes);
 
 /* MONGOOSE SETUP */
