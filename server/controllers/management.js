@@ -25,23 +25,21 @@ export const getUserPerformance = async (req, res) => {
 					as: 'affiliateStats',
 				},
 			},
-			{ $unwind: 'affiliateStats' },
+			{ $unwind: '$affiliateStats' },
 		]);
 
-		const salesTransactions = await Promise.all(
-			userWithStats[0].affiliateStats.affiliateSales,
-			map((id) => {
+		const saleTransactions = await Promise.all(
+			userWithStats[0].affiliateStats.affiliateSales.map((id) => {
 				return Transaction.findById(id);
 			})
 		);
-
-		const filterSaleTransactions = salesTransactions.filter(
+		const filteredSaleTransactions = saleTransactions.filter(
 			(transaction) => transaction !== null
 		);
 
 		res.status(200).json({
 			user: userWithStats[0],
-			sales: filterSaleTransactions,
+			sales: filteredSaleTransactions,
 		});
 	} catch (error) {
 		res.status(404).json({ message: error.message });

@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const AffiliateStatSchema = new mongoose.Schema(
 	{
 		userId: { type: mongoose.Types.ObjectId, ref: 'User' },
-		AffiliateSales: {
+		affiliateSales: {
 			type: [mongoose.Types.ObjectId],
 			ref: 'Transaction',
 		},
