@@ -15,7 +15,7 @@
 
 A MERN stack app building a dashboard to practice full-stack development and utilize materialUI.
 
-![Component Diagram](./README_Assets/Screenshot%202023-02-02%20201237.png)
+![Component Diagram](Screenshot%202023-02-02%20201237.png)
 
 # 🧑‍💻 Contributers
 
