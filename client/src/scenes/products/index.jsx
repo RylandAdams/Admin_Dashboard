@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	Box,
 	Card,
@@ -10,6 +10,10 @@ import {
 	Rating,
 	useTheme,
 	useMediaQuery,
+	Select,
+	MenuItem,
+	FormControl,
+	InputLabel,
 } from '@mui/material';
 import { useGetProductsQuery } from 'state/api';
 import Header from 'components/Header';
@@ -97,7 +101,17 @@ const Product = ({
 
 const Products = () => {
 	const { data, isLoading } = useGetProductsQuery();
+	const [filteredBy, setFilteredBy] = useState('All');
+	const [categories, setCategories] = useState([]);
 	const isNonMobile = useMediaQuery('(min-width: 1000px)');
+
+	useEffect(() => {
+		if (data) {
+			setCategories(Array.from(new Set(data.map((el) => el.category))));
+		}
+	}, [data]);
+
+	console.log(categories);
 
 	return (
 		<Box m='1.5rem 2.5rem'>
@@ -105,45 +119,80 @@ const Products = () => {
 				title='PRODUCTS'
 				subtitle='See your list of products.'
 			/>
+
 			{data || !isLoading ? (
-				<Box
-					mt='20px'
-					display='grid'
-					gridTemplateColumns='repeat(4, minmax(0, 1fr))'
-					justifyContent='space-between'
-					rowGap='20px'
-					columnGap='1.33%'
-					sx={{
-						'& > div': {
-							gridColumn: isNonMobile ? undefined : 'span 4',
-						},
-					}}
-				>
-					{data.map(
-						({
-							_id,
-							name,
-							description,
-							price,
-							rating,
-							category,
-							supply,
-							stat,
-						}) => (
-							<Product
-								key={_id}
-								_id={_id}
-								name={name}
-								description={description}
-								price={price}
-								rating={rating}
-								category={category}
-								supply={supply}
-								stat={stat}
-							/>
-						)
-					)}
-				</Box>
+				<>
+					<Box
+						display='flex'
+						justifyContent='flex-end'
+					>
+						<FormControl
+							display='flex'
+							justifyContent='flex-end'
+							sx={{ mt: '1rem' }}
+						>
+							<InputLabel>Filter By</InputLabel>
+							<Select
+								label='Categories'
+								onChange={(e) => setFilteredBy(e.target.value)}
+								value={filteredBy}
+								autoWidth
+							>
+								<MenuItem value='All'>All</MenuItem>
+								{categories.map((category) => (
+									<MenuItem value={`${category}`}>
+										{category}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
+					</Box>
+
+					<Box
+						mt='20px'
+						display='grid'
+						gridTemplateColumns='repeat(4, minmax(0, 1fr))'
+						justifyContent='space-between'
+						rowGap='20px'
+						columnGap='1.33%'
+						sx={{
+							'& > div': {
+								gridColumn: isNonMobile ? undefined : 'span 4',
+							},
+						}}
+					>
+						{data
+							.filter(
+								(item) =>
+									filteredBy === 'All' ||
+									item.category === filteredBy
+							)
+							.map(
+								({
+									_id,
+									name,
+									description,
+									price,
+									rating,
+									category,
+									supply,
+									stat,
+								}) => (
+									<Product
+										key={_id}
+										_id={_id}
+										name={name}
+										description={description}
+										price={price}
+										rating={rating}
+										category={category}
+										supply={supply}
+										stat={stat}
+									/>
+								)
+							)}
+					</Box>
+				</>
 			) : (
 				<>LOADING...</>
 			)}
