@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  <small>Last Updated: January 19, 2023</small>
+  <small>Last Updated: Feb 3, 2023</small>
 </p>
 
 # ℹ️ Description
