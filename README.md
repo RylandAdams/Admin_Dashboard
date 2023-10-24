@@ -53,4 +53,4 @@ A MERN stack app building a dashboard to practice full-stack development and uti
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Copyright (c) 2021 **_Ryland Adams_**
+Copyright (c) 2023 **_Ryland Adams_**
